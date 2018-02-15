@@ -14,6 +14,10 @@ import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import rmutsb.mook.chatchon.makingfavorcoffee.R;
 import rmutsb.mook.chatchon.makingfavorcoffee.ultility.MyManager;
 
@@ -35,6 +39,7 @@ public class MochaFragment extends Fragment {
     private String typeCoffeeString = "Cold Drink";
     private String espressoString = "10g", cocoString = "0.5g",
             milkString = "123g", frappeString = "456g";
+    private String dateTimeString;
 
 
     public static MochaFragment mochaInstance(String[] loginString) {
@@ -84,9 +89,13 @@ public class MochaFragment extends Fragment {
         //Frappe seekbar
         frappeSeekbar();
 
-
 //        Order Controller
         orderController();
+
+//        Get TimeDate
+        Calendar calendar = Calendar.getInstance();
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        dateTimeString = dateFormat.format(calendar.getTime());
 
 
 
@@ -101,26 +110,26 @@ public class MochaFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+                Log.d(tag, "idLogin ==> " + loginString[0]);
+                Log.d(tag, "NameCoffee ==> " + "Mocha");
+                Log.d(tag, "TypeCoffee ==> " + typeCoffeeString);
+                Log.d(tag, "Espresso ==> " + espressoString);
+                Log.d(tag, "CocoaPowder ==> " + cocoString);
+                Log.d(tag, "Milk ==> " + milkString);
+                Log.d(tag, "FrappePowder ==> " + frappeString);
+                Log.d(tag, "Item ==> " + "1");
+                Log.d(tag, "DateTimeOrder ==> " + dateTimeString);
 
 
-                Log.d(tag, "idLogin " + loginString[0]);
-                Log.d(tag, "NameCoffee " + "Mocha");
-                Log.d(tag, "TypeCoffee" + typeCoffeeString);
-                Log.d(tag, "Espresso" + espressoString);
-                Log.d(tag, "CocoaPowder" + cocoString);
-                Log.d(tag, "Milk" + milkString);
-                Log.d(tag, "FrappePowder" + frappeString);
-                Log.d(tag, "Item" + "1");
+//                MyManager myManager = new MyManager(getActivity());
+//                myManager.addValueToSQLite(loginString[0], "Mocha",
+//                        typeCoffeeString, espressoString, cocoString, milkString, frappeString, "1");
 
-                MyManager myManager = new MyManager(getActivity());
-                myManager.addValueToSQLite(loginString[0], "Mocha",
-                        typeCoffeeString, espressoString, cocoString, milkString, frappeString, "1");
-
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.contentFragmentCoffee, new ShowOrderFragment())
-                        .addToBackStack(null)
-                        .commit();
+//                getActivity().getSupportFragmentManager()
+//                        .beginTransaction()
+//                        .replace(R.id.contentFragmentCoffee, new ShowOrderFragment())
+//                        .addToBackStack(null)
+//                        .commit();
 
 
 
