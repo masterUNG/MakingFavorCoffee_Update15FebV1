@@ -19,6 +19,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import rmutsb.mook.chatchon.makingfavorcoffee.R;
+import rmutsb.mook.chatchon.makingfavorcoffee.ultility.AddShowOrder;
+import rmutsb.mook.chatchon.makingfavorcoffee.ultility.MyConstant;
 import rmutsb.mook.chatchon.makingfavorcoffee.ultility.MyManager;
 
 /**
@@ -120,10 +122,28 @@ public class MochaFragment extends Fragment {
                 Log.d(tag, "Item ==> " + "1");
                 Log.d(tag, "DateTimeOrder ==> " + dateTimeString);
 
+                try {
 
-//                MyManager myManager = new MyManager(getActivity());
-//                myManager.addValueToSQLite(loginString[0], "Mocha",
-//                        typeCoffeeString, espressoString, cocoString, milkString, frappeString, "1");
+                    AddShowOrder addShowOrder = new AddShowOrder(getActivity());
+                    MyConstant myConstant = new MyConstant();
+
+                    addShowOrder.execute(loginString[0], "Mocha", typeCoffeeString,
+                            espressoString, cocoString, milkString,
+                            frappeString, "1", dateTimeString,
+                            myConstant.getUrlAddShowOrderString());
+
+                    String result = addShowOrder.get();
+                    Log.d(tag, "Result ==> " + result);
+
+
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+
 
 //                getActivity().getSupportFragmentManager()
 //                        .beginTransaction()
