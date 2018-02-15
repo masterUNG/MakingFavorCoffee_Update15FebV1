@@ -139,9 +139,11 @@ public class MochaFragment extends Fragment {
 
                     if (Boolean.parseBoolean(result)) {
 
+
+//                        Replace Fragment on Activity
                         getActivity().getSupportFragmentManager()
                                 .beginTransaction()
-                                .replace(R.id.contentFragmentCoffee, new ShowOrderFragment())
+                                .replace(R.id.contentFragmentCoffee, ShowOrderFragment.showOrderInstance(loginString, dateTimeString))
                                 .addToBackStack(null)
                                 .commit();
 
