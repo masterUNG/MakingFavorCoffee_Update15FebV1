@@ -3,12 +3,16 @@ package rmutsb.mook.chatchon.makingfavorcoffee.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import rmutsb.mook.chatchon.makingfavorcoffee.R;
+import rmutsb.mook.chatchon.makingfavorcoffee.ultility.GetOrderWhereIdLoginAnDateTime;
+import rmutsb.mook.chatchon.makingfavorcoffee.ultility.MyConstant;
 
 /**
  * Created by Acer on 4/1/2561.
@@ -42,8 +46,37 @@ public class ShowOrderFragment extends Fragment{
 //        Show DateTime
         showDateTime();
 
+//        Create ListView
+        createListView();
+
 
     }   // Main Method
+
+    private void createListView() {
+
+        ListView listView = getView().findViewById(R.id.listViewOrder);
+        MyConstant myConstant = new MyConstant();
+        String tag = "15FebV2";
+
+        try {
+
+            GetOrderWhereIdLoginAnDateTime getOrderWhereIdLoginAnDateTime = new GetOrderWhereIdLoginAnDateTime(getActivity());
+            getOrderWhereIdLoginAnDateTime.execute(loginStrings[0], dateTimeString,
+                    myConstant.getUrlGetOrderWhereIdLoginAnDateTime());
+
+            String resultJSON = getOrderWhereIdLoginAnDateTime.get();
+            Log.d(tag, "JSON ==> " + resultJSON);
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+
+    }   // createListView
 
     private void showDateTime() {
 
