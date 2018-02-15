@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -28,7 +29,6 @@ import rmutsb.mook.chatchon.makingfavorcoffee.ultility.MyManager;
  */
 
 public class MochaFragment extends Fragment {
-
 
 
     //    Explicit
@@ -95,14 +95,16 @@ public class MochaFragment extends Fragment {
         orderController();
 
 //        Get TimeDate
-        Calendar calendar = Calendar.getInstance();
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-        dateTimeString = dateFormat.format(calendar.getTime());
-
+        getTimeDate();
 
 
     }//Main method
 
+    private void getTimeDate() {
+        Calendar calendar = Calendar.getInstance();
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        dateTimeString = dateFormat.format(calendar.getTime());
+    }
 
 
     private void orderController() {
@@ -135,25 +137,25 @@ public class MochaFragment extends Fragment {
                     String result = addShowOrder.get();
                     Log.d(tag, "Result ==> " + result);
 
+                    if (Boolean.parseBoolean(result)) {
 
+                        getActivity().getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.contentFragmentCoffee, new ShowOrderFragment())
+                                .addToBackStack(null)
+                                .commit();
+
+                    } else {
+
+                        Toast.makeText(getActivity(), "Cannot Upload Order to Server",
+                                Toast.LENGTH_SHORT).show();
+
+                    }
 
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-
-
-
-//                getActivity().getSupportFragmentManager()
-//                        .beginTransaction()
-//                        .replace(R.id.contentFragmentCoffee, new ShowOrderFragment())
-//                        .addToBackStack(null)
-//                        .commit();
-
-
-
-
 
             }   // onClick
         });
@@ -196,7 +198,7 @@ public class MochaFragment extends Fragment {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
-                if (progress <= 10){
+                if (progress <= 10) {
                     progress = 10;
                 }
 
@@ -227,7 +229,7 @@ public class MochaFragment extends Fragment {
                 double progressAdouble = (double) progress;
                 double milkAdoudle = progressAdouble / 10.0;
 
-                if (milkAdoudle < 0.5){
+                if (milkAdoudle < 0.5) {
                     milkAdoudle = 0.5;
                 }
                 milkString = Double.toString(milkAdoudle);
